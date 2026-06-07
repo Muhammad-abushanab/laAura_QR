@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>La Aura Coffee House</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet">
+    <style>
+      :root {
+        --bg: #f2ece0;
+        --bg-card: #faf7f2;
+        --green-dark: #1e3d2f;
+        --green-mid: #2a5040;
+        --gold: #b8923a;
+        --gold-light: #c9a456;
+        --text-ar: #1a1a1a;
+        --text-en: #888070;
+        --text-price: #1e3d2f;
+        --border: rgba(0, 0, 0, 0.07);
+        --pill-bg: #ffffff;
+        --pill-border: #e0d8ca;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        background: var(--bg);
+        font-family: 'Tajawal', sans-serif;
+        color: var(--text-ar);
+        min-height: 100vh;
+        padding-bottom: 90px;
+        direction: rtl;
+      }
+
+      /* ── HEADER ── */
+      .header {
+        background: var(--green-dark);
+        padding: 2.5rem 1.5rem 2rem;
+        text-align: center;
+        border-radius: 0 0 28px 28px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(184, 146, 58, 0.5), transparent);
+      }
+
+      .header-brand {
+        font-family: 'DM Serif Display', serif;
+        font-size: 2.6rem;
+        font-weight: 400;
+        color: var(--gold-light);
+        letter-spacing: 0.04em;
+        line-height: 1;
+        direction: ltr;
+      }
+
+      .header-sub {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.3em;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        margin-top: 0.35rem;
+        direction: ltr;
+      }
+
+      /* ── CONTENT ── */
+      .content {
+        padding: 0 1rem;
+      }
+
+      /* ── SECTION ── */
+      .section {
+        display: none;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      .section>* {
+        animation: fadeUp 0.3s ease both;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── CATEGORY HEADER ── */
+      .cat-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 1.6rem 0.25rem 0.75rem;
+        direction: rtl;
+      }
+
+      .cat-ar {
+        font-size: 1.65rem;
+        font-weight: 700;
+        color: var(--text-ar);
+        line-height: 1.1;
+      }
+
+      .cat-en {
+        font-family: 'DM Serif Display', serif;
+        font-style: italic;
+        font-size: 0.85rem;
+        color: var(--gold);
+        font-weight: 400;
+      }
+
+      /* ── CARD ── */
+      .card {
+        background: var(--bg-card);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+        margin-bottom: 0.5rem;
+      }
+
+      /* ── ITEM ROW ── */
+      .item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.1rem;
+        border-bottom: 1px solid var(--border);
+        direction: rtl;
+        gap: 0.75rem;
+      }
+
+      .item:last-child {
+        border-bottom: none;
+      }
+
+      .item-text {
+        flex: 1;
+        text-align: right;
+      }
+
+      .description-ar {
+        font-size: 0.75rem;
+        color: var(--text-ar);
+        margin-top: 0.25rem;
+        padding-top: 0.15rem;
+        line-height: 1.1;
+      }
+
+      .item-ar {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-ar);
+        line-height: 1.2;
+      }
+
+      .item-en {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.72rem;
+        color: var(--text-en);
+        font-weight: 400;
+        margin-top: 0.15rem;
+        direction: ltr;
+        text-align: right;
+      }
+
+      /* ── PRICE PILL ── */
+      .price-pill {
+        background: var(--pill-bg);
+        border: 1.5px solid var(--pill-border);
+        border-radius: 50px;
+        padding: 0.3rem 0.7rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--text-price);
+        white-space: nowrap;
+        flex-shrink: 0;
+        direction: ltr;
+      }
+
+      /* ── EXTRAS DARK CARD ── */
+      .card-dark {
+        background: var(--green-dark);
+        border-radius: 18px;
+        padding: 1.1rem 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-dark-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--gold-light);
+        text-align: right;
+        margin-bottom: 0.75rem;
+        direction: rtl;
+      }
+
+      .extra-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.35rem 0;
+        direction: rtl;
+      }
+
+      .extra-name {
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.85);
+        text-align: right;
+      }
+
+      .extra-price {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.82rem;
+        color: var(--gold-light);
+        font-weight: 500;
+        direction: ltr;
+      }
+
+      /* ── BOTTOM NAV ── */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(242, 236, 224, 0.96);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 0.6rem 0.75rem 0.75rem;
+        z-index: 200;
+      }
+
+      .nav-scroll {
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        direction: rtl;
+        padding-bottom: 2px;
+      }
+
+      .nav-scroll::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: var(--bg-card);
+        border: 1.5px solid var(--pill-border);
+        border-radius: 50px;
+        padding: 0.45rem 0.85rem;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #666;
+        white-space: nowrap;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: all 0.18s;
+        direction: rtl;
+      }
+
+      .nav-pill .pill-icon {
+        font-size: 0.9rem;
+      }
+
+      .nav-pill.active {
+        background: var(--green-dark);
+        border-color: var(--green-dark);
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-brand">LA AURA</div>
+      <div class="header-sub">Coffee House</div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ══ COFFEE ══ -->
+      <div id="coffee" class="section active">
+
+        <div class="cat-header">
+          <div class="cat-ar">القهوة الكلاسيكية</div>
+          <div class="cat-en">Coffee Classics</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">إسبريسو</div>
+              <div class="item-en">Espresso</div>
+            </div>
+            <div class="price-pill">₪5.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">دبل إسبريسو</div>
+              <div class="item-en">Double Espresso</div>
+            </div>
+            <div class="price-pill">₪7.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">أمريكانو</div>
+              <div class="item-en">Americano</div>
+            </div>
+            <div class="price-pill">₪8.00 / ₪10.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">لاتيه</div>
+              <div class="item-en">Latte</div>
+            </div>
+            <div class="price-pill">₪10.00 / ₪13.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كابتشينو</div>
+              <div class="item-en">Cappuccino</div>
+            </div>
+            <div class="price-pill">₪10.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فلات وايت</div>
+              <div class="item-en">Flat White</div>
+            </div>
+            <div class="price-pill">₪12.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">أفوغاتو</div>
+              <div class="item-en">Affogato</div>
+            </div>
+            <div class="price-pill">₪12.00</div>
+          </div>
+        </div>
+
+        <div class="cat-header">
+          <div class="cat-ar">لاتيه</div>
+          <div class="cat-en">Signature Latte</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">سبانش لاتيه سيغنتشر</div>
+              <div class="item-en">Signature Spanish Latte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">موكا سيغنتشر</div>
+              <div class="item-en">Signature Mocha</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">آيرش لاتيه سيغنتشر</div>
+              <div class="item-en">Signature Irish Latte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ميلانو لاتيه سيغنتشر</div>
+              <div class="item-en">Signature Milano Latte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">قرفة لاتيه سيغتنشر</div>
+              <div class="item-en">Signature Cinnamon Latte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بندق لاتيه سيغنتشر</div>
+              <div class="item-en">Signature Hazelnut Latte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كراميل لاتيه سيغتنشر</div>
+              <div class="item-en">Signature Caramel Latte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فانيلا لاتيه سيغنتشر</div>
+              <div class="item-en">Signature Vanilla Latte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+        </div>
+
+        <div class="cat-header">
+          <div class="cat-ar">فرابكو سيغنتشر</div>
+          <div class="cat-en">Signature Frapco</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كراميل فرابكو سيغنتشر</div>
+              <div class="item-en">Signature Caramel Frapco</div>
+            </div>
+            <div class="price-pill">₪17 / ₪15</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">تشوكلت فرابكو سيغنتشر</div>
+              <div class="item-en">Signature Chocolate Frapco</div>
+            </div>
+            <div class="price-pill">₪17 / ₪15</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فستق فرابكو سيغنتشر</div>
+              <div class="item-en">Signature Pistachio Frapco</div>
+            </div>
+            <div class="price-pill">₪17 / ₪15</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فراولة فرابكو سيغنتشر</div>
+              <div class="item-en">Signature Strawberry Frapco</div>
+            </div>
+            <div class="price-pill">₪17 / ₪15</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فانيلا فرابكو سيغنتشر</div>
+              <div class="item-en">Signature Vanilla Frapco</div>
+            </div>
+            <div class="price-pill">₪17 / ₪15</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كوكيز فرابكو سيغنتشر</div>
+              <div class="item-en">Signature Mun-Cookies Frapco</div>
+            </div>
+            <div class="price-pill">₪17.00</div>
+          </div>
+        </div>
+
+        <div class="cat-header">
+          <div class="cat-ar">آيس كوفي</div>
+          <div class="cat-en">Iced Coffee</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">آيس كوفي</div>
+              <div class="item-en">Iced Coffee</div>
+            </div>
+            <div class="price-pill">₪15 / ₪11</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">دايت آيسد كوفي</div>
+              <div class="item-en">Diet Iced Coffee</div>
+            </div>
+            <div class="price-pill">₪15 / ₪11</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">تشوكلت آيسد كوفي</div>
+              <div class="item-en">Chocolate Iced Coffee</div>
+            </div>
+            <div class="price-pill">₪15 / ₪11</div>
+          </div>
+        </div>
+
+      </div><!-- /coffee -->
+
+      <!-- ══ HOT DRINKS ══ -->
+      <div id="hot" class="section">
+        <div class="cat-header">
+          <div class="cat-ar">المشروبات الباردة</div>
+          <div class="cat-en">Iced Drinks</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">آيسد كراميل</div>
+              <div class="item-en">Iced Caramel</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">آيسد فانيلا </div>
+              <div class="item-en">Iced Vanilla</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">آيسد فرينش فانيلا </div>
+              <div class="item-en">Iced French Vanilla</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">آيسد بندق</div>
+              <div class="item-en">Iced Hazelnut</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+        </div>
+
+        <div class="cat-header">
+          <div class="cat-ar">آيسد تشوكلت بلجيكي</div>
+          <div class="cat-en">Iced Belgium Chocolate</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">آيسد شوكولاتة بلجيكية</div>
+              <div class="item-en">Iced Belgium Chocolate</div>
+            </div>
+            <div class="price-pill">₪16 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كريمي آيسد تشوكلت بلجيكي</div>
+              <div class="item-en">Iced Belgium Chocolate Pudding</div>
+            </div>
+            <div class="price-pill">₪18 / ₪14</div>
+          </div>
+        </div>
+      </div><!-- /hot -->
+
+      <!-- ══ SIGNATURE DRINKS ══ -->
+      <div id="signature" class="section">
+        <div class="cat-header">
+          <div class="cat-ar">ميلك شيك</div>
+          <div class="cat-en">Milkshakes</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بيكان ميلك شيك </div>
+              <div class="item-en">Pecan Milkshake</div>
+            </div>
+            <div class="price-pill">₪17 / ₪14</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بيغلا ميلك شيك </div>
+              <div class="item-en">Begla Milkshake</div>
+            </div>
+            <div class="price-pill">₪16 / ₪13</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">تشوكلت ميلك شيك</div>
+              <div class="item-en">Chocolate Milkshake</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ريسيز ميلك شيك</div>
+              <div class="item-en">Reese's Milkshake</div>
+            </div>
+            <div class="price-pill">₪16 / ₪13</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بلوبيري ميلك شيك</div>
+              <div class="item-en">Blueberry Milkshake</div>
+            </div>
+            <div class="price-pill">₪16 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">أوريو ميلك شيك</div>
+              <div class="item-en">Oreo Milkshake</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">لوتس ميلك شيك</div>
+              <div class="item-en">Lotus Milkshake</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كاندي ميلك شيك </div>
+              <div class="item-en">Candy Milkshake</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">سيريلاك ميلك شيك </div>
+              <div class="item-en">Cerelac Milkshake</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بيستاشيو ميلك شيك </div>
+              <div class="item-en">Pistachio Milkshake</div>
+            </div>
+            <div class="price-pill">₪16 / ₪13</div>
+          </div>
+        </div>
+        <div class="cat-header">
+          <div class="cat-ar">سموذي</div>
+          <div class="cat-en">Smoothies</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فراولة</div>
+              <div class="item-en">Strawberry</div>
+            </div>
+            <div class="price-pill">₪13.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بينا كولادا</div>
+              <div class="item-en">Piña Colada</div>
+              <div class="description-ar">مشروب استوائي يحتوي على الاناناس وجوز الهند</div>
+            </div>
+            <div class="price-pill">₪13.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بيرغو</div>
+              <div class="item-en">Pergo</div>
+              <div class="description-ar">مشروب يحتوي على المانجا والفواكه الاستوائية</div>
+            </div>
+            <div class="price-pill">₪13.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ميكسد بيريز</div>
+              <div class="item-en">Mixed Berries</div>
+            </div>
+            <div class="price-pill">₪14.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">مسفلورا</div>
+              <div class="item-en">The Passionate</div>
+            </div>
+            <div class="price-pill">₪14.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بامكانك اختيار مكس معين بناءا على رغبتك</div>
+            </div>
+            <div class="price-pill">₪15.00</div>
+          </div>
+        </div>
+        <div class="cat-header">
+          <div class="cat-ar">موهيتو</div>
+          <div class="cat-en">Mojito</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">موهيتو سبرايت / صودا</div>
+              <div class="item-en">Mojito — Sprite / Soda</div>
+            </div>
+            <div class="price-pill">₪13 / ₪10</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">موهيتو سيغنتشر</div>
+              <div class="item-en">Signature Mojito (Special Mix)</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">موهيتو كوولسكي</div>
+              <div class="item-en">Mojito Kowalski</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بينك ليمونيد</div>
+              <div class="item-en">Pink Lemonade</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">سنرايز</div>
+              <div class="item-en">Sunrise</div>
+            </div>
+            <div class="price-pill">₪13</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ميلوفيتا</div>
+              <div class="item-en">Milovita</div>
+            </div>
+            <div class="price-pill">₪13</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فيرتي</div>
+              <div class="item-en">Verte</div>
+            </div>
+            <div class="price-pill">₪15 / ₪12</div>
+          </div>
+        </div>
+        <div class="cat-header">
+          <div class="cat-ar">ماتشا لاتيه</div>
+          <div class="cat-en">Matcha Latte</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ماتشا لاتيه</div>
+              <div class="item-en">Matcha Latte</div>
+            </div>
+            <div class="price-pill">₪24 / ₪15</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">فانيلا ماتشا لاتيه</div>
+              <div class="item-en">Vanilla Matcha Latte</div>
+            </div>
+            <div class="price-pill">₪25 / ₪15</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ستروبري ماتشا لاتيه</div>
+              <div class="item-en">Strawberry Matcha Latte</div>
+            </div>
+            <div class="price-pill">₪25 / ₪16</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">رازبيري ماتشا لاتيه</div>
+              <div class="item-en">Raspberry Matcha Latte</div>
+            </div>
+            <div class="price-pill">₪25 / ₪16</div>
+          </div>
+        </div>
+        
+      </div><!-- /signature -->
+
+      <!-- ══ DESSERTS ══ -->
+      <div id="desserts" class="section">
+        <div class="cat-header">
+          <div class="cat-ar">الحلويات</div>
+          <div class="cat-en">Sweet Treats</div>
+        </div>
+        <div class="card">
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">اورجينال تيراميسوا</div>
+              <div class="item-en">Original Tiramisu</div>
+            </div>
+            <div class="price-pill">₪12.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ليمون تيراميسوا</div>
+              <div class="item-en">Lemon Tiramisu</div>
+            </div>
+            <div class="price-pill">₪12.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">ستروبيري تيراميسوا</div>
+              <div class="item-en">Strawberry Tiramisu</div>
+            </div>
+            <div class="price-pill">₪12.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">نيويورك كوكيز</div>
+              <div class="item-en">New York Cookies</div>
+              <div class="description-ar">أكثر من عشرين نكهة</div>
+            </div>
+            <div class="price-pill">₪8.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">براونيز </div>
+              <div class="item-en">Brownies</div>
+            </div>
+            <div class="price-pill">₪3.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كرات لوتس / أوريو</div>
+              <div class="item-en">Lotus / Oreo Balls</div>
+            </div>
+            <div class="price-pill">₪3.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كيك كسول / إيزي</div>
+              <div class="item-en">Lazy / Easy Cake</div>
+            </div>
+            <div class="price-pill">₪2.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كاسة كوكي بايتس</div>
+              <div class="item-en">Cookie Bites Cup</div>
+              <div class="description-ar">بامكانك اضافة نكهة تشوكلت لوتس بيستاشيو</div>
+            </div>
+            <div class="price-pill">₪10.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كلاسيك كوكيز</div>
+              <div class="item-en">Classic Cookies</div>
+            </div>
+            <div class="price-pill">₪4.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">كوكي سكوب</div>
+              <div class="item-en">Cookie Scoop</div>
+              <div class="description-ar">يحتوي على البوظة</div>
+            </div>
+            <div class="price-pill">₪12.00</div>
+          </div>
+          <div class="item">
+            <div class="item-text">
+              <div class="item-ar">بروكي سكوب</div>
+              <div class="item-en">Prookie Scoop</div>
+              <div class="description-ar">يحتوي على البوظة</div>
+            </div>
+            <div class="price-pill">₪15.00</div>
+          </div>
+        </div>
+
+        <div class="cat-header" style="padding-bottom:0.5rem">
+          <div class="cat-ar">الإضافات</div>
+          <div class="cat-en">Extras</div>
+        </div>
+        <div class="card-dark">
+          <div class="card-dark-title">الإضافات / Extras</div>
+          <div class="extra-row">
+            <div class="extra-name">شوت اسبريسو اضافي (Extra Shot)</div>
+            <div class="extra-price">+ ₪3.00</div>
+          </div>
+          <div class="extra-row">
+            <div class="extra-name">كوب اضافي (Extra Cup)</div>
+            <div class="extra-price">+ ₪1.00</div>
+          </div>
+        </div>
+
+      </div><!-- /desserts -->
+
+    </div><!-- /content -->
+
+    <!-- BOTTOM NAV -->
+    <div class="bottom-nav">
+      <div class="nav-scroll">
+        <button class="nav-pill active" onclick="show('coffee',this)"><span class="pill-icon">☕</span> القهوة</button>
+        <button class="nav-pill" onclick="show('hot',this)"><span class="pill-icon">🍵</span> المشروبات الباردة</button>
+        <button class="nav-pill" onclick="show('signature',this)"><span class="pill-icon">✨</span> المشروبات
+          المميزة</button>
+        <button class="nav-pill" onclick="show('desserts',this)"><span class="pill-icon">🍰</span> الحلويات</button>
+      </div>
+    </div>
+
+    <script>
+      function show(id, btn) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-pill').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    </script>
+  </body>
+
+</html>
